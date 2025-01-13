@@ -16,3 +16,43 @@ sealed class HomeUiState{
     data class Error(val exception: Throwable) : HomeUiState()
     object Loading : HomeUiState()
 }
+
+class HomeViewModel(
+    private val mhs: MahasiswaRepository
+) : ViewModel() {
+    var mhsUIState: HomeUiState by mutableStateOf(HomeUiState.Loading)
+        private set
+
+    init {
+        getMhs()
+    }
+
+    fun deleteMhs(mahasiswa: Mahasiswa) {
+        viewModelScope.launch {
+            try {
+                mhs.deleteMahasiswa("")
+            } catch (e: Exception) {
+                mhsUIState = HomeUiState.Error(e)
+            }
+        }
+    }
+
+    fun getMhs() {
+        viewModelScope.launch {
+            mhs.getMahasiswa()
+                .onStart {
+                    mhsUIState = HomeUiState.Loading
+                }
+                .catch {
+                    mhsUIState = HomeUiState.Error(it)
+                }
+                .collect{
+                    mhsUIState = if (it.isEmpty()) {
+                        HomeUiState.Error(Exception("Belum ada daftar Mahasiswa"))
+                    } else {
+                        HomeUiState.Success(it)
+                    }
+                }
+        }
+    }
+}
