@@ -1,5 +1,6 @@
 package com.example.firebase
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -15,33 +16,16 @@ import com.example.firebase.ui.theme.FireBaseTheme
 import com.example.firebase.ui.view.HomeScreen
 
 class MainActivity : ComponentActivity() {
+    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             FireBaseTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                   HomeScreen(navigateToItemEntry = {},
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                Scaffold(modifier = Modifier.fillMaxSize()) {
+                    MahasiswaApp()
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    FireBaseTheme {
-        Greeting("Android")
     }
 }
