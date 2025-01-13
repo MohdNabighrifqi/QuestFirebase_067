@@ -18,3 +18,6 @@ object PenyediaViewModel {
         }
     }
 }
+
+fun CreationExtras.MahasiswaApplication() : MahasiswaApplications =
+    (this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as MahasiswaApplications)
