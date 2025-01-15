@@ -1,3 +1,5 @@
+@file:Suppress("KotlinConstantConditions")
+
 package com.example.firebase.ui.view
 
 import androidx.compose.foundation.clickable
@@ -39,6 +41,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.firebase.model.Mahasiswa
+import com.example.firebase.ui.viewmodel.HomeDetailUiState
 import com.example.firebase.ui.viewmodel.HomeUiState
 import com.example.firebase.ui.viewmodel.HomeViewModel
 import com.example.firebase.ui.viewmodel.PenyediaViewModel
@@ -108,6 +111,8 @@ fun HomeStatus(
             )
         is HomeUiState.Error -> OnError(retryAction, modifier = modifier.fillMaxSize(),
             message = homeUiState.exception.message ?: "Error")
+
+
     }
 }
 
